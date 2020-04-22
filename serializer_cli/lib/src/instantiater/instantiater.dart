@@ -376,7 +376,7 @@ class AnnotationParser {
     if (processor != null) {
       DartType deserType = processor.deserialized;
 //      if (deserType.isDynamic || deserType.isSupertypeOf(type)) {
-      if (deserType.isDynamic || TypeChecker.fromStatic(deserType).isSuperTypeOf(type)) {
+      if (deserType.isDynamic || TypeChecker.fromRuntime(deserType.runtimeType).isSuperTypeOf(type)) {
         return ProcessedTypeInfo(
             "_" + firstCharToLowerCase(processor.instantiationString),
             processor.serializedStr,
