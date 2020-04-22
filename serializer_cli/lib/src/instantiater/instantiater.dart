@@ -3,6 +3,7 @@ library jaguar_serializer.generator.helpers;
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/constant/value.dart';
+import 'package:analyzer/dart/element/type_system.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:jaguar_serializer/jaguar_serializer.dart';
 
@@ -374,7 +375,8 @@ class AnnotationParser {
   TypeInfo _expandTypeInfo(DartType type, FieldProcessorInfo processor) {
     if (processor != null) {
       DartType deserType = processor.deserialized;
-      if (deserType.isDynamic || deserType.isSupertypeOf(type)) {
+//      if (deserType.isDynamic || deserType.isSupertypeOf(type)) {
+      if (deserType.isDynamic || TypeChecker.fromStatic(deserType).isSuperTypeOf(type)) {
         return ProcessedTypeInfo(
             "_" + firstCharToLowerCase(processor.instantiationString),
             processor.serializedStr,
